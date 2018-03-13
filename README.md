@@ -2,4 +2,4 @@
 
 Daily scores of Finnish NHL players.
 
-https://jarmop.github.io/projects/nhl/
+https://jarmop.github.io/nhl/
