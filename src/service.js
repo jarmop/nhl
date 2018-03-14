@@ -71,13 +71,13 @@ const fetchFinishedGames = () => {
 };
 
 const addStar = (score, playerId, starValue) => {
-  if (!score.hasOwnProperty(playerId)) {
-    score[playerId] = {
+  score[playerId] = {
+    ...(score.hasOwnProperty(playerId) ? score[players.person.id] : {
       goals: 0,
       assists: 0,
-    };
-  }
-  score[playerId].star = starValue;
+    }),
+    star: starValue,
+  };
 
   return score;
 };
@@ -85,15 +85,25 @@ const addStar = (score, playerId, starValue) => {
 const fillScore = (score, playersData) => {
   Object.keys(playersData).map(playerId => {
     let players = playersData[playerId];
-    if (players.position.code === 'G') {
+    if (players.position.code === 'G'
+        && score.hasOwnProperty(players.person.id)
+        && score[players.person.id].star !== undefined) {
       let {saves, shots} = players.stats.goalieStats;
       if (saves && shots) {
-        score[players.person.id] = {goals: 0, assists: 0, saves, shots}
+        score[players.person.id] = {
+          ...score[players.person.id], goals: 0, assists: 0, saves, shots,
+        };
       }
     } else if (['C', 'L', 'R', 'D'].includes(players.position.code)) {
       let {goals, assists} = players.stats.skaterStats;
       if (goals || assists) {
-        score[players.person.id] = {goals,assists}
+
+        score[players.person.id] = {
+          ...(score.hasOwnProperty(players.person.id) ?
+              score[players.person.id] :
+              {}),
+          goals, assists,
+        };
       }
     }
   });
@@ -112,13 +122,14 @@ const fetchScores = (gamePks) => {
               // eslint-disable-next-line
               (result) => {
                 processCount++;
-                let {away, home} = result.liveData.boxscore.teams;
-                score = fillScore(score, away.players);
-                score = fillScore(score, home.players);
 
                 score = addStar(score, result.liveData.decisions.firstStar.id, 1);
                 score = addStar(score, result.liveData.decisions.secondStar.id, 2);
                 score = addStar(score, result.liveData.decisions.thirdStar.id, 3);
+
+                let {away, home} = result.liveData.boxscore.teams;
+                score = fillScore(score, away.players);
+                score = fillScore(score, home.players);
 
                 if (processCount === gamePks.length) {
                   resolve(score);
@@ -168,7 +179,7 @@ const sortByPoints = (stats) => {
         }
         return 0;
       },
-  )
+  );
 };
 
 export const getStats = () => {
