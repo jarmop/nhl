@@ -1,4 +1,4 @@
-import {players, teams} from './data';
+import {players} from './data';
 
 const SCHEDULE_URL = 'https://statsapi.web.nhl.com/api/v1/schedule?date=';
 const GAME_FEED_URL = 'https://statsapi.web.nhl.com/api/v1/game/[GAME_PK]/feed/live';
@@ -9,7 +9,6 @@ const ERROR_MESSAGE = 'Something went wrong.';
 const CACHE_VERSION = 3;
 
 let playerIds = Object.keys(players);
-let teamIds = Object.keys(teams);
 let startDate = (new Date());
 startDate.setHours(0, 0, 0, 0);
 startDate.setDate(startDate.getDate() - 1);
@@ -85,7 +84,7 @@ const addStar = (score, playerId, starValue) => {
 };
 
 const fillScore = (score, playersData) => {
-  Object.keys(playersData).map(playerId => {
+  for (let playerId of Object.keys(playersData)) {
     let players = playersData[playerId];
     if (players.position.code === 'G'
         && score.hasOwnProperty(players.person.id)
@@ -108,7 +107,7 @@ const fillScore = (score, playersData) => {
         };
       }
     }
-  });
+  }
 
   return score;
 };
@@ -204,7 +203,7 @@ export const getGameNightData = () => {
   }
 
   let unfinishedGames = [];
-  return fetchGames(teamIds)
+  return fetchGames()
   // return Promise.resolve([2017021051])
       .then(games => {
         unfinishedGames = games.unfinished;
