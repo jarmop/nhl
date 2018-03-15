@@ -1,8 +1,10 @@
 .app {
-  display: flex;
-  flex-wrap: wrap;
   --margin: 5px;
   margin: var(--margin);
+}
+.stats {
+  display: flex;
+  flex-wrap: wrap;
 }
 .card-container {
   margin: var(--margin);

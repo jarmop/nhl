@@ -1,4 +1,4 @@
-import {players} from './data';
+import {players, teams} from './data';
 
 const SCHEDULE_URL = 'https://statsapi.web.nhl.com/api/v1/schedule?date=';
 const GAME_FEED_URL = 'https://statsapi.web.nhl.com/api/v1/game/[GAME_PK]/feed/live';
@@ -6,9 +6,10 @@ const IMAGE_URL = 'https://nhl.bamcontent.com/images/headshots/current/60x60/[PL
 const YOU_TUBE_SEARCH_URL = 'https://www.youtube.com/results?search_query=[QUERY]';
 const GAME_STATUS_CODE_FINAL = '7';
 const ERROR_MESSAGE = 'Something went wrong.';
-const CACHE_VERSION = 2;
+const CACHE_VERSION = 3;
 
 let playerIds = Object.keys(players);
+let teamIds = Object.keys(teams);
 let startDate = (new Date());
 startDate.setHours(0, 0, 0, 0);
 startDate.setDate(startDate.getDate() - 1);
@@ -30,7 +31,7 @@ const formatDate = (date) => {
       + addLeadingZero(date.getDate());
 };
 
-const fetchFinishedGames = () => {
+const fetchGames = () => {
   let date = formatDate(startDate);
   // let date = 'bad-request';
   // let date = '2018-06-06';
@@ -47,18 +48,19 @@ const fetchFinishedGames = () => {
               return Promise.reject('No games today.');
             }
             let games = result.dates[0].games;
-            let gamePks = [];
+            let finished = [];
+            let unfinished = [];
             for (let game of games) {
-              if (game.status.statusCode !== GAME_STATUS_CODE_FINAL) {
-                break;
+              if (game.status.statusCode === GAME_STATUS_CODE_FINAL) {
+                finished.push(game.gamePk);
+              } else {
+                unfinished.push(game.gamePk);
               }
-              gamePks.push(game.gamePk);
             }
-            if (gamePks.length === games.length) {
-              return Promise.resolve(gamePks);
-            }
-            else {
-              return Promise.reject('Games are still running.');
+            if (finished.length > 0) {
+              return Promise.resolve({finished, unfinished});
+            } else {
+              return Promise.reject('No finished games yet.');
             }
           },
           // Note: it's important to handle errors here
@@ -123,9 +125,12 @@ const fetchScores = (gamePks) => {
               (result) => {
                 processCount++;
 
-                score = addStar(score, result.liveData.decisions.firstStar.id, 1);
-                score = addStar(score, result.liveData.decisions.secondStar.id, 2);
-                score = addStar(score, result.liveData.decisions.thirdStar.id, 3);
+                score = addStar(score, result.liveData.decisions.firstStar.id,
+                    1);
+                score = addStar(score, result.liveData.decisions.secondStar.id,
+                    2);
+                score = addStar(score, result.liveData.decisions.thirdStar.id,
+                    3);
 
                 let {away, home} = result.liveData.boxscore.teams;
                 score = fillScore(score, away.players);
@@ -169,7 +174,8 @@ const sortByPoints = (stats) => {
   return stats.sort(
       (statsA, statsB) => {
         if (statsA.star || statsB.star) {
-          return (statsA.star ? statsA.star : 4) - (statsB.star ? statsB.star : 4);
+          return (statsA.star ? statsA.star : 4) -
+              (statsB.star ? statsB.star : 4);
         }
         if (statsB.goals - statsA.goals !== 0) {
           return statsB.goals - statsA.goals;
@@ -182,21 +188,44 @@ const sortByPoints = (stats) => {
   );
 };
 
-export const getStats = () => {
-  if (localStorage.getItem(cacheKey)) {
-    let stats = JSON.parse(localStorage.getItem(cacheKey));
-    return Promise.resolve(stats);
+/**
+ * @param array unfinishedGames
+ * @returns {string}
+ */
+const getCacheKey = (unfinishedGames) => {
+  return cacheKey + unfinishedGames.length;
+};
+
+export const getGameNightData = () => {
+  let cacheKeyA = getCacheKey([]);
+  if (localStorage.getItem(cacheKeyA)) {
+    let data = JSON.parse(localStorage.getItem(cacheKeyA));
+    return Promise.resolve(data);
   }
 
-  return fetchFinishedGames()
+  let unfinishedGames = [];
+  return fetchGames(teamIds)
   // return Promise.resolve([2017021051])
-      .then((gamePks) => fetchScores(gamePks))
-      .then(score => parseFinns(score))
-      .then(stats => sortByPoints(stats))
-      .then(stats => {
-        localStorage.setItem(cacheKey, JSON.stringify(stats));
-        return stats;
+      .then(games => {
+        unfinishedGames = games.unfinished;
+        let cacheKEyB = getCacheKey(unfinishedGames);
+        if (localStorage.getItem(cacheKEyB)) {
+          let data = JSON.parse(localStorage.getItem(cacheKEyB));
+          return data;
+        } else {
+          return fetchScores(games.finished)
+              .then(score => parseFinns(score))
+              .then(stats => sortByPoints(stats))
+              .then(stats => {
+                localStorage.setItem(
+                    cacheKEyB,
+                    JSON.stringify({stats, unfinishedGames})
+                );
+                return {stats, unfinishedGames};
+              });
+        }
       });
+
 };
 
 export const getImageUrl = (playerId) => {
