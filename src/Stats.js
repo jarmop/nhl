@@ -25,7 +25,6 @@ class Stats extends Component {
     if (this.state.data.stats.length === 0) {
       getGameNightData()
           .then(data => {
-            console.log(data);
             this.setState({
               statsReady: true,
               data: data,
