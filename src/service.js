@@ -4,7 +4,7 @@ const SCHEDULE_URL = 'https://statsapi.web.nhl.com/api/v1/schedule?date=';
 const GAME_FEED_URL = 'https://statsapi.web.nhl.com/api/v1/game/[GAME_PK]/feed/live';
 const IMAGE_URL = 'https://nhl.bamcontent.com/images/headshots/current/60x60/[PLAYER_ID]@2x.jpg';
 const YOU_TUBE_SEARCH_URL = 'https://www.youtube.com/results?search_query=[QUERY]';
-const GAME_STATUS_CODE_FINAL = '7';
+const GAME_STATUS_CODES_FINAL = ['6','7'];
 const ERROR_MESSAGE = 'Something went wrong.';
 const CACHE_VERSION = 3;
 
@@ -50,7 +50,7 @@ const fetchGames = () => {
             let finished = [];
             let unfinished = [];
             for (let game of games) {
-              if (game.status.statusCode === GAME_STATUS_CODE_FINAL) {
+              if (GAME_STATUS_CODES_FINAL.includes(game.status.statusCode)) {
                 finished.push(game.gamePk);
               } else {
                 unfinished.push(game.gamePk);
