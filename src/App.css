@@ -30,6 +30,10 @@
   align-items: center;
   font-size: 1.7em;
   font-weight: bold;
+  height: 2rem;
+}
+.card__points--has-shootout-goals {
+  font-size: 1.3em;
 }
 .card__headshot {
   border: 1px solid #e3e3e3;

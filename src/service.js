@@ -75,12 +75,26 @@ const fetchGames = () => {
 
 const addStar = (score, playerId, starValue) => {
   score[playerId] = {
-    ...(score.hasOwnProperty(playerId) ? score[players.person.id] : {
+    ...(score.hasOwnProperty(playerId) ? score[playerId] : {
       goals: 0,
       assists: 0,
     }),
     star: starValue,
   };
+
+  return score;
+};
+
+const addShootoutGoal = (score, playerId) => {
+  score[playerId] = {
+    ...(score.hasOwnProperty(playerId) ? score[playerId] : {
+      goals: 0,
+      assists: 0,
+      shootOutGoals: 0,
+    })
+  };
+
+  score[playerId].shootOutGoals++;
 
   return score;
 };
@@ -116,6 +130,7 @@ const fillScore = (score, playersData) => {
 };
 
 const fetchScores = (gamePks) => {
+  // gamePks = [2017021182];
   return new Promise((resolve, reject) => {
     let processCount = 0;
     let score = {};
@@ -131,6 +146,15 @@ const fetchScores = (gamePks) => {
                 score = addStar(score, firstStar.id, 1);
                 score = addStar(score, secondStar.id, 2);
                 score = addStar(score, thirdStar.id, 3);
+
+                let plays =  result.liveData.plays;
+                for (let playId of plays.scoringPlays) {
+                  let play = plays.allPlays[playId];
+                  if (play.about.periodType === 'SHOOTOUT' && play.result.eventTypeId === 'GOAL') {
+                    let playerId = play.players.filter(player => player.playerType === 'Scorer').pop().player.id;
+                    addShootoutGoal(score, playerId);
+                  }
+                }
 
                 let {away, home} = result.liveData.boxscore.teams;
                 score = fillScore(score, away.players);
@@ -157,12 +181,8 @@ const parseFinns = (score) => {
   for (let playerId of playerIds) {
     if (score.hasOwnProperty(playerId)) {
       stats.push({
+        ...score[playerId],
         playerId: playerId,
-        goals: score[playerId].goals,
-        assists: score[playerId].assists,
-        shots: score[playerId].shots,
-        saves: score[playerId].saves,
-        star: score[playerId].star,
       });
     }
   }
@@ -205,11 +225,11 @@ export const getGameNightData = () => {
 
   let unfinishedGames = [];
   return fetchGames()
-  // return Promise.resolve([2017021051])
       .then(games => {
         unfinishedGames = games.unfinished;
         let cacheKEyB = getCacheKey(unfinishedGames);
         if (localStorage.getItem(cacheKEyB)) {
+        // if (false) {
           let data = JSON.parse(localStorage.getItem(cacheKEyB));
           return data;
         } else {

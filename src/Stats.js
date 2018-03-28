@@ -50,12 +50,25 @@ class Stats extends Component {
               <div className="stats">
                 {
                   stats.map(
-                      ({playerId, goals = null, assists = null, saves = null, shots = null, star = null}) => {
+                      ({playerId, goals = null, assists = null, shootOutGoals = null, saves = null, shots = null, star = null}) => {
                         let points = '';
-                        if (goals || assists) {
+                        if (goals || assists || shootOutGoals) {
                           points = (
-                              <div className="card__points">
+                              <div
+                                  className={'card__points' + (shootOutGoals
+                                      ? ' card__points--has-shootout-goals'
+                                      : '')}
+                              >
                                 {goals + ' + ' + assists}
+                                {shootOutGoals &&
+                                <span
+                                    className="card__shoot-out-goals"
+                                    title="Shootout goals"
+                                >
+                                  &nbsp;
+                                  <span>(+{shootOutGoals})</span>
+                                </span>
+                                }
                               </div>
                           );
                         } else if (saves && shots) {
@@ -101,7 +114,7 @@ class Stats extends Component {
                 }
               </div>
               {unfinishedGames.length > 0 &&
-                <span>{unfinishedGames.length} games not finished yet.</span>
+              <span>{unfinishedGames.length} games not finished yet.</span>
               }
             </div>
 
