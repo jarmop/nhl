@@ -150,25 +150,23 @@ const fetchScores = (gamePks) => {
                   score = addStar(score, firstStar.id, 1);
                   score = addStar(score, secondStar.id, 2);
                   score = addStar(score, thirdStar.id, 3);
+                }
 
-                  let plays =  result.liveData.plays;
-                  for (let playId of plays.scoringPlays) {
-                    let play = plays.allPlays[playId];
-                    if (play.about.periodType === 'SHOOTOUT' && play.result.eventTypeId === 'GOAL') {
-                      let playerId = play.players.filter(player => player.playerType === 'Scorer').pop().player.id;
-                      addShootoutGoal(score, playerId);
-                    }
+                let plays =  result.liveData.plays;
+                for (let playId of plays.scoringPlays) {
+                  let play = plays.allPlays[playId];
+                  if (play.about.periodType === 'SHOOTOUT' && play.result.eventTypeId === 'GOAL') {
+                    let playerId = play.players.filter(player => player.playerType === 'Scorer').pop().player.id;
+                    addShootoutGoal(score, playerId);
                   }
+                }
 
-                  let {away, home} = result.liveData.boxscore.teams;
-                  score = fillScore(score, away.players);
-                  score = fillScore(score, home.players);
+                let {away, home} = result.liveData.boxscore.teams;
+                score = fillScore(score, away.players);
+                score = fillScore(score, home.players);
 
-                  if (processCount === gamePks.length) {
-                    resolve(score);
-                  }
-                } else {
-                  reject('stars missing on game ' + gamePk + ' with status ' + result.gameData.status.statusCode)
+                if (processCount === gamePks.length) {
+                  resolve(score);
                 }
               },
               // Note: it's important to handle errors here
