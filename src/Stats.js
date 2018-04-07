@@ -44,7 +44,7 @@ class Stats extends Component {
     let {stats, unfinishedGames} = this.state.data;
 
     if (statsReady) {
-      if (stats.length > 0) {
+      if (!message) {
         return (
             <div>
               <div className="stats">
