@@ -4,7 +4,7 @@ self.__precacheManifest = [
     "url": "/nhl/static/media/fontawesome-webfont.af7ae505.woff2"
   },
   {
-    "revision": "6f15abc9d0fc030c58f0",
+    "revision": "9c173dfc3dba68c88ab0",
     "url": "/nhl/static/css/main.4c8a7619.chunk.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = [
     "url": "/nhl/static/js/runtime~main.bd85c5b5.js"
   },
   {
-    "revision": "6f15abc9d0fc030c58f0",
-    "url": "/nhl/static/js/main.6f15abc9.chunk.js"
+    "revision": "9c173dfc3dba68c88ab0",
+    "url": "/nhl/static/js/main.9c173dfc.chunk.js"
   },
   {
     "revision": "fee66e712a8a08eef5805a46892932ad",
@@ -40,7 +40,7 @@ self.__precacheManifest = [
     "url": "/nhl/static/css/1.01c8fe88.chunk.css"
   },
   {
-    "revision": "745a74294d9b4cc6ae99a2c6c0b9e29b",
+    "revision": "56b8480885c9cbf20fa439702cce8b94",
     "url": "/nhl/index.html"
   }
 ];
