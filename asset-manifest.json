@@ -1,16 +1,25 @@
 {
-  "main.css": "/nhl/static/css/main.1f830758.chunk.css",
-  "main.js": "/nhl/static/js/main.4711efa0.chunk.js",
-  "main.js.map": "/nhl/static/js/main.4711efa0.chunk.js.map",
-  "static/css/1.a79df3f9.chunk.css": "/nhl/static/css/1.a79df3f9.chunk.css",
-  "static/js/1.eac2f865.chunk.js": "/nhl/static/js/1.eac2f865.chunk.js",
-  "static/js/1.eac2f865.chunk.js.map": "/nhl/static/js/1.eac2f865.chunk.js.map",
-  "runtime~main.js": "/nhl/static/js/runtime~main.bd85c5b5.js",
-  "runtime~main.js.map": "/nhl/static/js/runtime~main.bd85c5b5.js.map",
-  "static/media/font-awesome.min.css": "/nhl/static/media/fontawesome-webfont.fee66e71.woff",
-  "static/css/main.1f830758.chunk.css.map": "/nhl/static/css/main.1f830758.chunk.css.map",
-  "static/css/1.a79df3f9.chunk.css.map": "/nhl/static/css/1.a79df3f9.chunk.css.map",
-  "index.html": "/nhl/index.html",
-  "precache-manifest.78794a35b12f8e6779d48784b5136b13.js": "/nhl/precache-manifest.78794a35b12f8e6779d48784b5136b13.js",
-  "service-worker.js": "/nhl/service-worker.js"
+  "files": {
+    "main.css": "/nhl/static/css/main.fc133c46.chunk.css",
+    "main.js": "/nhl/static/js/main.d9b6ec5a.chunk.js",
+    "main.js.map": "/nhl/static/js/main.d9b6ec5a.chunk.js.map",
+    "runtime-main.js": "/nhl/static/js/runtime-main.ab272387.js",
+    "runtime-main.js.map": "/nhl/static/js/runtime-main.ab272387.js.map",
+    "static/css/2.1dd2dd61.chunk.css": "/nhl/static/css/2.1dd2dd61.chunk.css",
+    "static/js/2.14eda2e1.chunk.js": "/nhl/static/js/2.14eda2e1.chunk.js",
+    "static/js/2.14eda2e1.chunk.js.map": "/nhl/static/js/2.14eda2e1.chunk.js.map",
+    "index.html": "/nhl/index.html",
+    "precache-manifest.a1a75658d325732a452ca06968306acc.js": "/nhl/precache-manifest.a1a75658d325732a452ca06968306acc.js",
+    "service-worker.js": "/nhl/service-worker.js",
+    "static/css/2.1dd2dd61.chunk.css.map": "/nhl/static/css/2.1dd2dd61.chunk.css.map",
+    "static/css/main.fc133c46.chunk.css.map": "/nhl/static/css/main.fc133c46.chunk.css.map",
+    "static/media/font-awesome.min.css": "/nhl/static/media/fontawesome-webfont.fee66e71.woff"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.ab272387.js",
+    "static/css/2.1dd2dd61.chunk.css",
+    "static/js/2.14eda2e1.chunk.js",
+    "static/css/main.fc133c46.chunk.css",
+    "static/js/main.d9b6ec5a.chunk.js"
+  ]
 }
