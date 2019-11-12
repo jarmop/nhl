@@ -158,7 +158,10 @@ export const players = {
   },
   8481572: {
     name: 'Ville Heinola',
-  }
+  },
+  8481554: {
+    name: 'Kaapo Kakko',
+  },
 };
 
 export const teams = {
@@ -198,6 +201,7 @@ export const teams = {
 export const rosters = {
   1: [8475222],
   2: [8476444, 8470047, 8473463],
+  3: [8481554],
   4: [8474627],
   5: [8476874],
   6: [8471695],
