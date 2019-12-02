@@ -16,6 +16,12 @@ startDate.setHours(0, 0, 0, 0);
 startDate.setDate(startDate.getDate() - 1);
 let cacheKey = 'stats' + startDate.getTime() + CACHE_VERSION;
 
+const DEFAULT_SCORE = {
+  goals: 0,
+  assists: 0,
+  shootOutGoals: 0,
+};
+
 /**
  * @param value
  * @returns {string}
@@ -74,26 +80,18 @@ const fetchGames = () => {
 };
 
 const addStar = (score, playerId, starValue) => {
-  score[playerId] = {
-    ...(score.hasOwnProperty(playerId) ? score[playerId] : {
-      goals: 0,
-      assists: 0,
-    }),
-    star: starValue,
-  };
+  if (!score.hasOwnProperty(playerId)) {
+    score[playerId] = {...DEFAULT_SCORE};
+  }
+  score[playerId].star = starValue;
 
   return score;
 };
 
 const addShootoutGoal = (score, playerId) => {
-  score[playerId] = {
-    ...(score.hasOwnProperty(playerId) ? score[playerId] : {
-      goals: 0,
-      assists: 0,
-      shootOutGoals: 0,
-    })
-  };
-
+  if (!score.hasOwnProperty(playerId)) {
+    score[playerId] = {...DEFAULT_SCORE};
+  }
   score[playerId].shootOutGoals++;
 
   return score;

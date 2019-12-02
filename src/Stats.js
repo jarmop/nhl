@@ -86,6 +86,7 @@ class Stats extends Component {
                                       getPlayer(playerId).name)}
                                   className="player-link"
                                   target="_blank"
+                                  rel="noopener noreferrer"
                               >
                                 <div className="card">
                                   <div className="card__player">
