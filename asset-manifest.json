@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/nhl/static/css/main.fc133c46.chunk.css",
-    "main.js": "/nhl/static/js/main.0a864069.chunk.js",
-    "main.js.map": "/nhl/static/js/main.0a864069.chunk.js.map",
+    "main.js": "/nhl/static/js/main.3c1eea0b.chunk.js",
+    "main.js.map": "/nhl/static/js/main.3c1eea0b.chunk.js.map",
     "runtime-main.js": "/nhl/static/js/runtime-main.fb21caf1.js",
     "runtime-main.js.map": "/nhl/static/js/runtime-main.fb21caf1.js.map",
     "static/css/2.1dd2dd61.chunk.css": "/nhl/static/css/2.1dd2dd61.chunk.css",
     "static/js/2.a3f46a19.chunk.js": "/nhl/static/js/2.a3f46a19.chunk.js",
     "static/js/2.a3f46a19.chunk.js.map": "/nhl/static/js/2.a3f46a19.chunk.js.map",
     "index.html": "/nhl/index.html",
-    "precache-manifest.6d816a8a848e2582447c34c014402a2c.js": "/nhl/precache-manifest.6d816a8a848e2582447c34c014402a2c.js",
+    "precache-manifest.55599173f4f9be9e45df585d2d3580fd.js": "/nhl/precache-manifest.55599173f4f9be9e45df585d2d3580fd.js",
     "service-worker.js": "/nhl/service-worker.js",
     "static/css/2.1dd2dd61.chunk.css.map": "/nhl/static/css/2.1dd2dd61.chunk.css.map",
     "static/css/main.fc133c46.chunk.css.map": "/nhl/static/css/main.fc133c46.chunk.css.map",
@@ -20,6 +20,6 @@
     "static/css/2.1dd2dd61.chunk.css",
     "static/js/2.a3f46a19.chunk.js",
     "static/css/main.fc133c46.chunk.css",
-    "static/js/main.0a864069.chunk.js"
+    "static/js/main.3c1eea0b.chunk.js"
   ]
 }
