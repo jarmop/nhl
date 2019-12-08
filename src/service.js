@@ -9,6 +9,7 @@ const GAME_STATUS_CODES = {
 };
 const ERROR_MESSAGE = 'Something went wrong.';
 const CACHE_VERSION = 3;
+const USE_CACHE = true;
 
 let playerIds = Object.keys(players);
 let startDate = (new Date());
@@ -221,7 +222,7 @@ const getCacheKey = (unfinishedGames) => {
 
 export const getGameNightData = () => {
   let cacheKeyA = getCacheKey([]);
-  if (localStorage.getItem(cacheKeyA)) {
+  if (USE_CACHE && localStorage.getItem(cacheKeyA)) {
     let data = JSON.parse(localStorage.getItem(cacheKeyA));
     return Promise.resolve(data);
   }
@@ -231,8 +232,7 @@ export const getGameNightData = () => {
       .then(games => {
         unfinishedGames = games.unfinished;
         let cacheKEyB = getCacheKey(unfinishedGames);
-        if (localStorage.getItem(cacheKEyB)) {
-        // if (false) {
+        if (USE_CACHE && localStorage.getItem(cacheKEyB)) {
           let data = JSON.parse(localStorage.getItem(cacheKEyB));
           return data;
         } else {

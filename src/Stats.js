@@ -60,7 +60,7 @@ class Stats extends Component {
                                       : '')}
                               >
                                 {goals + ' + ' + assists}
-                                {shootOutGoals &&
+                                {shootOutGoals > 0 &&
                                 <span
                                     className="card__shoot-out-goals"
                                     title="Shootout goals"
