@@ -231,9 +231,9 @@ export const getGameNightData = () => {
   return fetchGames()
       .then(games => {
         unfinishedGames = games.unfinished;
-        let cacheKEyB = getCacheKey(unfinishedGames);
-        if (USE_CACHE && localStorage.getItem(cacheKEyB)) {
-          let data = JSON.parse(localStorage.getItem(cacheKEyB));
+        let cacheKeyB = getCacheKey(unfinishedGames);
+        if (USE_CACHE && localStorage.getItem(cacheKeyB)) {
+          let data = JSON.parse(localStorage.getItem(cacheKeyB));
           return data;
         } else {
           return fetchScores(games.finished)
@@ -241,7 +241,7 @@ export const getGameNightData = () => {
               .then(stats => sortByPoints(stats))
               .then(stats => {
                 localStorage.setItem(
-                    cacheKEyB,
+                    cacheKeyB,
                     JSON.stringify({stats, unfinishedGames}),
                 );
                 return {stats, unfinishedGames};
