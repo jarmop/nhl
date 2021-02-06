@@ -2,7 +2,7 @@ import {players} from './data';
 
 const SCHEDULE_URL = 'https://statsapi.web.nhl.com/api/v1/schedule?date=';
 const GAME_FEED_URL = 'https://statsapi.web.nhl.com/api/v1/game/[GAME_PK]/feed/live';
-const IMAGE_URL = 'https://nhl.bamcontent.com/images/headshots/current/60x60/[PLAYER_ID]@2x.jpg';
+const IMAGE_URL = 'http://nhl.bamcontent.com/images/headshots/current/60x60/[PLAYER_ID]@2x.jpg';
 const YOU_TUBE_SEARCH_URL = 'https://www.youtube.com/results?search_query=[QUERY]';
 const GAME_STATUS_CODES = {
   FINAL: ['6', '7'],
