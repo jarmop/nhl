@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "c011eca3ae1aca26db44690ff412b104",
+    "revision": "f5f334a4f007582a522f05dec777dee4",
     "url": "/nhl/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nhl/static/css/2.1dd2dd61.chunk.css"
   },
   {
-    "revision": "c49a406f5bf64641ab68",
+    "revision": "ee6825c2ee19a1cfc929",
     "url": "/nhl/static/css/main.fc133c46.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nhl/static/js/2.a3f46a19.chunk.js"
   },
   {
-    "revision": "c49a406f5bf64641ab68",
-    "url": "/nhl/static/js/main.1ac60d38.chunk.js"
+    "revision": "ee6825c2ee19a1cfc929",
+    "url": "/nhl/static/js/main.f6711f56.chunk.js"
   },
   {
     "revision": "cb2caf09632bc11e5df3",
